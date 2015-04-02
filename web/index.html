@@ -4,115 +4,118 @@
 <head>
     <title>Test</title>
     <link rel="stylesheet" href="/bootstrap.min.css">
-   <!--  <link rel="stylesheet" href="/cover.css"> -->
-   	<link rel="stylesheet" href="/animate-animo.css">
+    <!--  <link rel="stylesheet" href="/cover.css"> -->
+    <link rel="stylesheet" href="/animate-animo.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/animo.js"></script>
     <style type="text/css">
-    #login,
-    #loggedin {}
-    
-    .text-overflow {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 500px;
-    }
-    
-    .row {
-        margin-bottom: 20px;
-    }
-    a:link {
-    text-decoration: none;
-}
-    
-    .row .row {
-        margin-top: 10px;
-        margin-bottom: 0;
-    }
-    
-    [class*="col-"] {
-        background-color: #eee;
-        background-color: rgba(86, 61, 124, .15);
-        border: 1px solid #ddd;
-        border: 1px solid rgba(86, 61, 124, .2);
-        height: 120px;
-        overflow: hidden;
-        white-space: normal;
-        text-align: left;
-    }
-    
-    .artistid {
-        display: none;
-    }
-    
-    .media-object {
-        -webkit-animation: fadein 2s;
-        /* Safari, Chrome and Opera > 12.1 */
-        
-        -moz-animation: fadein 5s;
-        /* Firefox < 16 */
-        
-        -ms-animation: fadein 2s;
-        /* Internet Explorer */
-        
-        -o-animation: fadein 2s;
-        /* Opera < 12.1 */
-        
-        animation: fadein 5s;
-    }
-    
-    @-moz-keyframes fadein {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-    /* Safari, Chrome and Opera > 12.1 */
-    
-    @-webkit-keyframes fadein {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-    /* Internet Explorer */
-    
-    @-ms-keyframes fadein {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-    /* Opera < 12.1 */
-    
-    @-o-keyframes fadein {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-    .media-left{
-    	width: 60%;
-height: 100%;
-    }
-    .col-md-8 {
-    height: 100px;
-    overflow: hidden;
-}
+        #login,
+        #loggedin {}
 
-    </style>
-    <script type="text/javascript" src="/test1.js"></script>
-    <script type="text/javascript">
+        .text-overflow {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 500px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+        a:link {
+            text-decoration: none;
+        }
+
+        .row .row {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        [class*="col-"] {
+            background-color: #eee;
+            background-color: rgba(86, 61, 124, .15);
+            border: 1px solid #ddd;
+            border: 1px solid rgba(86, 61, 124, .2);
+            height: 120px;
+            overflow: hidden;
+            white-space: normal;
+            text-align: left;
+        }
+
+        .artistid {
+            display: none;
+        }
+
+        .media-object {
+            -webkit-animation: fadein 2s;
+            /* Safari, Chrome and Opera > 12.1 */
+
+            -moz-animation: fadein 5s;
+            /* Firefox < 16 */
+
+            -ms-animation: fadein 2s;
+            /* Internet Explorer */
+
+            -o-animation: fadein 2s;
+            /* Opera < 12.1 */
+
+            animation: fadein 5s;
+        }
+
+        @-moz-keyframes fadein {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Safari, Chrome and Opera > 12.1 */
+
+        @-webkit-keyframes fadein {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Internet Explorer */
+
+        @-ms-keyframes fadein {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Opera < 12.1 */
+
+        @-o-keyframes fadein {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .media-left{
+           width: 60%;
+           height: 100%;
+       }
+       .col-md-8 {
+        height: 100px;
+        overflow: hidden;
+    }
+    .colblocks{
+        opacity:0;
+    }
+
+</style>
+<script type="text/javascript" src="/test1.js"></script>
+<script type="text/javascript">
     $(function() {
         var dict = {};
         var firsttime = true;
@@ -154,22 +157,50 @@ height: 100%;
         //     }
         // });
 
-		$("#artists").on("click", "div.colblocks", function(){
-			var len = $("div.colblocks").length;
-			$("div.colblocks").each(function(index){
-				console.log(index);
-				$(this).delay(200*index).queue(function(nxt){
-					$(this).animo({animation: "fadeOutDown", duration: 0.4, keep: true});
-					nxt();
-				if(index == len-1){
-					$("#artists").html("");
-				}
-				});
-				
-			}).done(function(){
-				
-			});
-		});
+$("#artists").on("click", "div.colblocks", function(){
+   var len = $("div.colblocks").length;
+   var artistid = $(this).find("p").html();
+   alert(artistid);
+   $("div.colblocks").each(function(index){
+    console.log(index);
+    $(this).delay(200*index).queue(function(nxt){
+     $(this).animo({animation: "fadeOutDown", duration: 0.2, keep: true});
+     nxt();
+     if(index == len-1){
+         resetthings();
+         console.log(dict[artistid]);
+         var html = "<div class='jumbotron'><h1>"+dict[artistid][0]+"</h1></div>";
+         $("#artists").html(html);
+
+        //  $.ajax({
+        //     type: "GET",
+        //     url: "/searchRelatedArtists",
+        //     dataType: 'json',
+        //     data: {
+        //         'artistid': artistid
+        //     },
+        //     success: function(result) {
+        //     //alert(result[0].href);
+        //     console.log(result);
+        //     dict = {}
+        //     buildlist(result);
+
+        // },
+        // error: function(result) {
+        //     console.log(result)
+        // }
+
+    //});
+     }
+ });			
+});
+});
+
+
+
+
+
+
         // function getartistdetail(id) {
         //     if (dict.length == 0) {
         //         return
@@ -196,7 +227,7 @@ height: 100%;
             dict = {};
             firsttime = true;
             $("#artists").html("");
-            $('#artistdetail').collapse("hide");
+            //$('#artistdetail').collapse("hide");
         };
 
         function buildlist(result) {
@@ -212,17 +243,23 @@ height: 100%;
             	if(result[i].images.length>0){
             		imgurl=result[i].images[0].url;
             	}
-                ht += "<div class='col-md-6 btn-default btn colblocks' >" + "<div class='media-left'><img class='media-object img-rounded' src='" + imgurl + "' alt='" + imgurl + "' width='80%'></div><div class='media-body'><a class='media-heading '  href='#/'><h5>" + result[i].name  + "</h5></a></div>" + "<p class='artistid'>" + result[i].id + "</p> </div>";
+                ht += "<div class='col-md-6 btn-default btn colblocks' >" + "<div class='media-left'><img class='media-object img-rounded' src='" + imgurl + "' alt='" + imgurl + "' width='80%'></div><div class='media-body'><a class='media-heading '  href='#'><h5>" + result[i].name  + "</h5></a></div>" + "<p class='artistid'>" + result[i].id + "</p> </div>";
                 dict[result[i].id] = [result[i].name, result[i].images, result[i].popularity, result[i].uri];
                 i += 1;
             };
             $("#artists").append(ht);
+            $("div.colblocks").each(function(index){
+                $(this).delay(200*index).queue(function(nxt){
+                    $(this).animo({animation: "fadeInUp", duration: 0.4, keep: true});
+                    nxt();
+            });
+            });
             // $('#artistdetail').collapse({
             //     'toggle': false
             // });
-        };
-    });
-    </script>
+};
+});
+</script>
 </head>
 
 <body>

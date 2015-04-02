@@ -33,7 +33,7 @@ app.get('/searchArtists', function(req,res){
     		//console.log('Search by '+ name, data.body.artists.items);
     		
     		a['hf']=data.body.artists.items[0].href
-    		console.log('Search by '+ name, data.body.artists.items[0]);
+    		//console.log('Search by '+ name, data.body.artists.items[0]);
     		res.setHeader('Content-Type', 'application/json');
 			//console.log(JSON.stringify(data.body.artists.items));
     		res.end(JSON.stringify(data.body.artists.items));
@@ -43,6 +43,35 @@ app.get('/searchArtists', function(req,res){
     		console.error(err);
   		});
 });
+
+app.get('/searchRelatedArtists', function(req, res){
+  console.log('/searchRelatedArtists');
+  console.log(req.query.artistid);
+  var id = req.query.artistid;
+  spotifyApi.getArtistRelatedArtists(id).then(function(data){
+    res.setHeader('Content-Type', 'application/json');
+    //console.log(data.body);
+    res.end(JSON.stringify(data.body.artists));
+  }, function(err) {
+        console.error(err);
+      });
+
+
+});
+
+app.get('/getAlbums', function(req, res){
+  console.log('/getAlbums');
+  console.log(req.query.artistid);
+  var id = req.query.artistid;
+  spotifyApi.getArtistAlbums(id).then(function(data){
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(data.body.items));
+  }, function(err){
+    console.error(err);
+  });
+});
+
+
 
 
 
