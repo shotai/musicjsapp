@@ -1,1 +1,1 @@
-{"name":"Musicjsapp","tagline":"musicnodejsapplicaiton","body":"# Music \r\nA music website using Nodejs with Spotify API\r\n<br />\r\n## Run \r\n`node app.js` <br />\r\n\r\n<br />\r\nTBD\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
+{"name":"Music","tagline":"Simple Nodejs Application","body":"# Music \r\nA music website using Nodejs with Spotify API\r\n<br />\r\n## Run \r\n`node app.js` <br />\r\n\r\n<br />\r\nTBD\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
