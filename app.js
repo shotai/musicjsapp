@@ -5,16 +5,15 @@ var SpotifyWebApi = require('spotify-web-api-node');
 
 var app = express();
 var spotifyApi = new SpotifyWebApi();
-/* Create an HTTP server to handle responses */
-/*http.createServer(function(request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Hello World");
-  response.end();
-}).listen(8888);*/
+app.set('port', process.env.PORT || 8000);
+app.use(express.logger());
+var httpListener = http.createServer(app);
+
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/script'));
 app.use(express.static(__dirname + '/css'));
 app.use(express.static(__dirname + '/source'));
+app.use
 
 
 app.get('/',function(req,res){
@@ -76,5 +75,6 @@ app.get('/getAlbums', function(req, res){
 
 
 //
-console.log('Listening on 8888');
-app.listen(8888);
+httpListener.listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+});
