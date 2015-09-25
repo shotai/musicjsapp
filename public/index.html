@@ -51,7 +51,7 @@
             -webkit-animation: fadein 2s;
             /* Safari, Chrome and Opera > 12.1 */
 
-            -moz-animation: fadein 5s;
+            -moz-animation: fadein 1s;
             /* Firefox < 16 */
 
             -ms-animation: fadein 2s;
@@ -60,7 +60,7 @@
             -o-animation: fadein 2s;
             /* Opera < 12.1 */
 
-            animation: fadein 5s;
+            animation: fadein 1s;
         }
 
         @-moz-keyframes fadein {
@@ -114,31 +114,19 @@
     }
 
 </style>
-<script type="text/javascript" src="/test1.js"></script>
+<script type="text/javascript" src="/frontend.js"></script>
 <script type="text/javascript">
-    $(function() {
+    $(document).ready(function() {
         var dict = {};
         var firsttime = true;
         $("#searchsingertest").click(function() {
             alert("searchsingertest")
             resetthings();
-            $.ajax({
-                type: "GET",
-                url: "/searchArtists",
-                dataType: 'json',
-                data: {
-                    'artistname': "sam smith"
-                },
-                success: function(result) {
-                    alert(result[0].href);
-                    console.log(result.length);
-                    dict = {}
+            getArtist("sam smith", function(result){
+                console.log(result);
+                if(result!=null){
                     buildlist(result);
-                },
-                error: function(result) {
-                    console.log(result)
                 }
-
             });
         });
 
@@ -163,7 +151,7 @@ $("#artists").on("click", "div.colblocks", function(){
    alert(artistid);
    $("div.colblocks").each(function(index){
     console.log(index);
-    $(this).delay(200*index).queue(function(nxt){
+    $(this).delay(150*index).queue(function(nxt){
      $(this).animo({animation: "fadeOutDown", duration: 0.2, keep: true});
      nxt();
      if(index == len-1){
@@ -247,10 +235,10 @@ $("#artists").on("click", "div.colblocks", function(){
                 dict[result[i].id] = [result[i].name, result[i].images, result[i].popularity, result[i].uri];
                 i += 1;
             };
-            $("#artists").append(ht);
+            $("#artists").html(ht);
             $("div.colblocks").each(function(index){
-                $(this).delay(200*index).queue(function(nxt){
-                    $(this).animo({animation: "fadeInUp", duration: 0.4, keep: true});
+                $(this).delay(150*index).queue(function(nxt){
+                    $(this).animo({animation: "fadeInUp", duration: 0.2, keep: true});
                     nxt();
             });
             });
