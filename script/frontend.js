@@ -1,11 +1,11 @@
 $(function(){
-	getArtistAlbums = function(artistUris, callback){
+	getArtistAlbums = function(artistId, callback){
 		$.ajax({
                 type: "GET",
                 url: "/getArtistAlbums",
                 dataType: 'json',
                 data: {
-                    'artisturis': artistUris
+                    'artistid': artistId
                 },
                 success: function(result) {
                     callback(result);
@@ -33,6 +33,24 @@ $(function(){
                     callback(null);
                 }
             });
+	};
+	getRelatedArtists = function(artistIds, callback){
+		$.ajax({
+                type: "GET",
+                url: "/getRelatedArtists",
+                dataType: 'json',
+                data: {
+                    'artistid': artistIds
+                },
+                success: function(result) {
+                    callback(result);
+                },
+                error: function(error) {
+                    console.log(error)
+                    callback(null);
+                }
+            });
 	}
+
 
 })

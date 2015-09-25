@@ -22,8 +22,6 @@ app.get('/',function(req,res){
 
 
 app.get('/getArtist', function(req,res){
-	console.log('searchArtists')
-	console.log(req.query.artistname);
 	var name = req.query.artistname;
 	spotifyApi.searchArtists(name)
   		.then(function(data) {
@@ -34,22 +32,17 @@ app.get('/getArtist', function(req,res){
   		});
 });
 
-app.get('/searchRelatedArtists', function(req, res){
-  console.log(req.query.artistid);
+app.get('/getRelatedArtists', function(req, res){
   var id = req.query.artistid;
   spotifyApi.getArtistRelatedArtists(id).then(function(data){
     res.setHeader('Content-Type', 'application/json');
-    //console.log(data.body);
     res.end(JSON.stringify(data.body.artists));
   }, function(err) {
         console.error(err);
       });
-
-
 });
 
 app.get('/getArtistAlbums', function(req, res){
-  console.log(req.query.artisturis);
   var id = req.query.artistid;
   spotifyApi.getArtistAlbums(id).then(function(data){
     res.setHeader('Content-Type', 'application/json');
