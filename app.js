@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 });
 
 
-app.get('/getArtist/:artistname', function(req, res, next) {
+app.get('/searchArtist/:artistname', function(req, res, next) {
 	console.log(req.query);
     var name = req.params.artistname;
     spotifyApi.searchArtists(name).then(function(data) {
@@ -46,8 +46,18 @@ app.get('/getArtist/:artistname', function(req, res, next) {
     });
 });
 
-app.get('/getRelatedArtists', function(req, res, next) {
-    var id = req.query.artistid;
+app.get('/getArtist/:artistid', function(req, res, next) {
+    var id = req.params.artistid;
+    spotifyApi.getArtist(id).then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(data.body.artists.items));
+    }, function(err) {
+        next(err);
+    });
+});
+
+app.get('/getRelatedArtists/:artistid', function(req, res, next) {
+    var id = req.params.artistid;
     spotifyApi.getArtistRelatedArtists(id).then(function(data) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(data.body.artists));

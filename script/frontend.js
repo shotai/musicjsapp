@@ -16,11 +16,26 @@ $(function() {
             }
         });
     };
-    getArtist = function(artistName, callback) {
+    getArtist = function(artistId, callback) {
+        console.log(artistId);
+        $.ajax({
+            type: "GET",
+            url: "/getArtist/"+artistId,
+            dataType: 'json',
+            success: function(result) {
+                callback(result);
+            },
+            error: function(error) {
+                console.log(error)
+                callback(null);
+            }
+        });
+    };
+    searchArtist = function(artistName, callback) {
         console.log(artistName);
         $.ajax({
             type: "GET",
-            url: "/getArtist/"+artistName,
+            url: "/searchArtist/"+artistName,
             dataType: 'json',
             data: {
                 //'_artistname': artistName
@@ -37,11 +52,8 @@ $(function() {
     getRelatedArtists = function(artistIds, callback) {
         $.ajax({
             type: "GET",
-            url: "/getRelatedArtists",
+            url: "/getRelatedArtists/"+artistIds,
             dataType: 'json',
-            data: {
-                'artistid': artistIds
-            },
             success: function(result) {
                 callback(result);
             },

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Test</title>
+    <title>Music</title>
     <link rel="stylesheet" href="/bootstrap.min.css">
     <!--  <link rel="stylesheet" href="/cover.css"> -->
     <link rel="stylesheet" href="/animate-animo.css">
@@ -118,10 +118,12 @@
     $(document).ready(function() {
         var dict = {};
         var firsttime = true;
+
+
         $("#searchsingertest").click(function() {
             alert("searchsingertest")
             resetthings();
-            getArtist("sam smith", function(result) {
+            searchArtist("sam smith", function(result) {
                 console.log(result);
                 if (result != null) {
                     buildlist(result);
@@ -150,7 +152,6 @@
             var artistid = $(this).find("p").html();
             alert(artistid);
             $("div.colblocks").each(function(index) {
-                console.log(index);
                 $(this).delay(150 * index).queue(function(nxt) {
                     $(this).animo({
                         animation: "fadeOutDown",
@@ -158,35 +159,20 @@
                         keep: true
                     });
                     nxt();
-                    if (index == len - 1) {
-                        resetthings();
-                        console.log(dict[artistid]);
-                        var html = "<div class='jumbotron'><h1>" + dict[artistid][0] + "</h1></div>";
-                        $("#artists").html(html);
-
-                        //  $.ajax({
-                        //     type: "GET",
-                        //     url: "/searchRelatedArtists",
-                        //     dataType: 'json',
-                        //     data: {
-                        //         'artistid': artistid
-                        //     },
-                        //     success: function(result) {
-                        //     //alert(result[0].href);
-                        //     console.log(result);
-                        //     dict = {}
-                        //     buildlist(result);
-
-                        // },
-                        // error: function(result) {
-                        //     console.log(result)
-                        // }
-
-                        //});
-                    }
                 });
+            })
+            resetthings();
+            console.log(artistid);
+            getRelatedArtists(artistid, function(result) {
+                console.log(result);
+                if (result != null) {
+                    buildlist(result);
+                }
             });
         });
+        //var html = "<div class='jumbotron'><h1>" + dict[artistid][0] + "</h1></div>";
+        // $("#artists").html(html);
+
 
 
 
