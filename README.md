@@ -4,5 +4,8 @@ A music website using Nodejs with Spotify API
 ## Run 
 `node app.js` <br />
 
+## /public
+html <br/ >
+
 <br />
 TBD
