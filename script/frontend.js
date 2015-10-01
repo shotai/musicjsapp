@@ -4,9 +4,6 @@ $(function() {
             type: "GET",
             url: "/getArtistAlbums/"+artistId,
             dataType: 'json',
-            data: {
-                'artistid': artistId
-            },
             success: function(result) {
                 callback(result);
             },
@@ -37,9 +34,6 @@ $(function() {
             type: "GET",
             url: "/searchArtist/"+artistName,
             dataType: 'json',
-            data: {
-                //'_artistname': artistName
-            },
             success: function(result) {
                 callback(result);
             },
@@ -66,11 +60,8 @@ $(function() {
     getTopTracks = function(artistIds, callback) {
         $.ajax({
             type: "GET",
-            url: "/getTopTracks",
+            url: "/getTopTracks/"+artistIds,
             dataType: 'json',
-            data: {
-                'artistid': artistIds
-            },
             success: function(result) {
                 callback(result);
             },

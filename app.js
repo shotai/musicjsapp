@@ -76,8 +76,8 @@ app.get('/getArtistAlbums', function(req, res, next) {
     });
 });
 
-app.get('/getTopTracks', function(req, res, next) {
-    var id = req.query.artistid;
+app.get('/getTopTracks/:artistid', function(req, res, next) {
+    var id = req.params.artistid;
     spotifyApi.getArtistTopTracks('0oSGxfWSnnOXhD2fKuz2Gy', 'GB').then(function(data) {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(data.body.items));
