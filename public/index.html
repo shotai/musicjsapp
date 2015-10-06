@@ -6,7 +6,7 @@
     <!--  <link rel="stylesheet" href="/cover.css"> -->
     <link rel="stylesheet" href="/animate-animo.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
-    <link rel="stylesheet" href="/index.css" >
+    <link rel="stylesheet" href="/index.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
@@ -15,9 +15,13 @@
     <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
     <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
     <script src="https://use.typekit.net/loh2mua.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    
-
+    <script>
+    try {
+        Typekit.load({
+            async: true
+        });
+    } catch (e) {}
+    </script>
     <script type="text/javascript" src="/frontend.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
@@ -65,14 +69,18 @@
             $("#artistModalName").html(artistname);
             getTopTracks(artistid, function(result) {
                 var i = 0;
-                var tmphtml="";
+                var tmphtml = "<p class='artistid'>"+artistid+"</p>";
                 console.log(result)
-                $.each(result.tracks, function(index, value){
+                $.each(result.tracks, function(index, value) {
                     tmphtml += "<div class='col-md-10 col-md-offset-1' >" + "<h5 id='trackname'>" + value.name + "</h5>" + "<p class='trackid'>" + value.id + "</p> </div>";
                 });
                 $(".modal-body .row").html(tmphtml);
             })
 
+
+        });
+        $("#searchRelated").on("click", function(e) {
+            var artistid = $(".modal-body .row .artistid").html();
             $("div.colblocks").each(function(index) {
                 $(this).delay(150 * index).queue(function(nxt) {
                     $(this).animo({
@@ -127,6 +135,8 @@
             //dict = {};
             firsttime = true;
             $("#artists").html("");
+            $("#artistModalName").html("");
+            $(".modal-body .row").html("");
             //$('#artistdetail').collapse("hide");
         };
 
@@ -142,7 +152,7 @@
                 if (result[i].images.length > 0) {
                     imgurl = result[i].images[0].url;
                 }
-                tmphtml += "<div class='col-md-6 btn-default btn colblocks' >" + "<div class='media-left'><img class='media-object img-rounded' src='" + imgurl + "' alt='" + imgurl + "' width='80%'></div><div class='media-body'><a class='media-heading '  href='#'><h5 id='artistname'>" + result[i].name + "</h5></a></div>" + "<p class='artistid'>" + result[i].id + "</p> </div>";
+                tmphtml += "<div class='col-md-6 btn-default btn colblocks' data-toggle='modal' data-target='#artistModal' >" + "<div class='media-left'><img class='media-object img-rounded' src='" + imgurl + "' alt='" + imgurl + "' width='80%'></div><div class='media-body'><a class='media-heading '  href='#'><h5 id='artistname'>" + result[i].name + "</h5></a></div>" + "<p class='artistid'>" + result[i].id + "</p> </div>";
                 i += 1;
             };
             $("#artists").html(tmphtml);
@@ -184,7 +194,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Search Ra</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="searchRelated">Related Artists</button>
                     </div>
                 </div>
             </div>
