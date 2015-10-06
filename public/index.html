@@ -10,8 +10,11 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="/animo.js"></script>
-    <style type="text/css"> 
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+    <style type="text/css">
     .text-overflow {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -19,7 +22,7 @@
         width: 500px;
     }
     
-    .row {
+    #artists .row {
         margin-bottom: 20px;
     }
     
@@ -32,7 +35,7 @@
         margin-bottom: 0;
     }
     
-    [class*="col-"] {
+    #artists [class*="col-"] {
         background-color: #eee;
         background-color: rgba(86, 61, 124, .15);
         border: 1px solid #ddd;
@@ -41,6 +44,13 @@
         overflow: hidden;
         white-space: normal;
         text-align: left;
+    }
+    
+    .modal-body [class*="col-"] {
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86, 61, 124, .2);
+        margin-bottom: 3px;
+        height: 50px;
     }
     
     .artistid {
@@ -115,127 +125,136 @@
     <script type="text/javascript" src="/frontend.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-        //var dict = {};
-        var firsttime = true;
-
-
-        $("#searchsingertest").click(function() {
-            alert("searchsingertest")
-            resetthings();
-            searchArtist("sam smith", function(result) {
-                console.log(result);
-                if (result != null) {
-                    buildlist(result);
-                }
-            });
-        });
-
-        // $("#artists").on("click", "a.artistname", function() {
-
-        //     var htmlString = $(this).find("p").html();
-        //     var l = dict[htmlString];
-        //     if (firsttime) {
-        //         getartistdetail(htmlString);
-        //         firsttime = false;
-        //     } else {
-        //         $('#artistdetail').collapse("hide");
-        //         $('#artistdetail').on('hidden.bs.collapse', function() {
-        //             getartistdetail(htmlString);
-        //         });
-        //     }
-        // });
-
-        $("#artists").on("click", "div.colblocks", function(e) {
-            e.preventDefault();
-            var len = $("div.colblocks").length;
-            var artistid = $(this).find("p").html();
-            alert(artistid);
-            $("div.colblocks").each(function(index) {
-                $(this).delay(150 * index).queue(function(nxt) {
-                    $(this).animo({
-                        animation: "fadeOutDown",
-                        duration: 0.2,
-                        keep: true
+                //var dict = {};
+                var firsttime = true;
+                $(".modal").each(function(index) {
+                    $(this).on('show.bs.modal', function(e) {
+                        $('.modal-dialog').velocity('transition.flipYIn');
                     });
-                    nxt();
                 });
-            })
-            resetthings();
-            console.log(artistid);
-            getRelatedArtists(artistid, function(result) {
-                console.log(result);
-                if (result != null) {
-                    buildlist(result);
-                }
-            });
-        });
-        //var html = "<div class='jumbotron'><h1>" + dict[artistid][0] + "</h1></div>";
-        // $("#artists").html(html);
 
-
-
-
-
-
-
-        // function getartistdetail(id) {
-        //     if (dict.length == 0) {
-        //         return
-        //     }
-        //     var artistname = dict[id][0];
-        //     var artistimage = "";
-        //     if (dict[id][1].length > 0) {
-        //         artistimage = dict[id][1][0].url;
-        //     } else {
-        //         artistimage = "/spotify-logo-vertical-white-rgb.png";
-        //     }
-        //     var artistimage2 = "/spotify-logo-vertical-white-rgb.png";
-        //     console.log(artistimage);
-
-
-
-        //     var htmlString = "<div class='media-left media-top'><a href='#'><img class='media-object img-rounded' src='" + artistimage + "' alt='" + artistimage2 + "' width='200' hight='500'></a></div><div class='media-body'><h4 class='media-heading'>" + artistname + "</h4>" + "test" + "</div>";
-
-        //     $(".media").html(htmlString);
-        //     $('#artistdetail').collapse("show");
-        // };
-
-        function resetthings() {
-            //dict = {};
-            firsttime = true;
-            $("#artists").html("");
-            //$('#artistdetail').collapse("hide");
-        };
-
-        function buildlist(result) {
-            if (result.length == 0) {
-                return
-            };
-            var tmphtml = "";
-            var i = 0;
-            var num = 20;
-            while (i < num && i < result.length) {
-                var imgurl = "/spotify-logo-vertical-white-rgb.png";
-                if (result[i].images.length > 0) {
-                    imgurl = result[i].images[0].url;
-                }
-                tmphtml += "<div class='col-md-6 btn-default btn colblocks' >" + "<div class='media-left'><img class='media-object img-rounded' src='" + imgurl + "' alt='" + imgurl + "' width='80%'></div><div class='media-body'><a class='media-heading '  href='#'><h5>" + result[i].name + "</h5></a></div>" + "<p class='artistid'>" + result[i].id + "</p> </div>";
-                //dict[result[i].id] = [result[i].name, result[i].images, result[i].popularity, result[i].uri];
-                i += 1;
-            };
-            $("#artists").html(tmphtml);
-            $("div.colblocks").each(function(index) {
-                $(this).delay(150 * index).queue(function(nxt) {
-                    $(this).animo({
-                        animation: "fadeInUp",
-                        duration: 0.2,
-                        keep: true
+                $("#searchsingertest").click(function() {
+                    alert("searchsingertest")
+                    resetthings();
+                    searchArtist("sam smith", function(result) {
+                        console.log(result);
+                        if (result != null) {
+                            buildlist(result);
+                        }
                     });
-                    nxt();
                 });
+
+                // $("#artists").on("click", "a.artistname", function() {
+
+                //     var htmlString = $(this).find("p").html();
+                //     var l = dict[htmlString];
+                //     if (firsttime) {
+                //         getartistdetail(htmlString);
+                //         firsttime = false;
+                //     } else {
+                //         $('#artistdetail').collapse("hide");
+                //         $('#artistdetail').on('hidden.bs.collapse', function() {
+                //             getartistdetail(htmlString);
+                //         });
+                //     }
+                // });
+
+                $("#artists").on("click", "div.colblocks", function(e) {
+                    e.preventDefault();
+                    var len = $("div.colblocks").length;
+                    var artistname = $(this).find("#artistname").html();
+                    var artistid = $(this).find("p").html();
+
+                    alert(artistname);
+                    $("#artistModalName").html(artistname);
+
+                    $("div.colblocks").each(function(index) {
+                        $(this).delay(150 * index).queue(function(nxt) {
+                            $(this).animo({
+                                animation: "fadeOutDown",
+                                duration: 0.2,
+                                keep: true
+                            });
+                            nxt();
+                        });
+                    })
+                    resetthings();
+                    console.log(artistid);
+                    getRelatedArtists(artistid, function(result) {
+                        console.log(result);
+                        if (result != null) {
+                            buildlist(result);
+                        }
+                    });
+                });
+                //var html = "<div class='jumbotron'><h1>" + dict[artistid][0] + "</h1></div>";
+                // $("#artists").html(html);
+
+
+
+
+
+
+
+                // function getartistdetail(id) {
+                //     if (dict.length == 0) {
+                //         return
+                //     }
+                //     var artistname = dict[id][0];
+                //     var artistimage = "";
+                //     if (dict[id][1].length > 0) {
+                //         artistimage = dict[id][1][0].url;
+                //     } else {
+                //         artistimage = "/spotify-logo-vertical-white-rgb.png";
+                //     }
+                //     var artistimage2 = "/spotify-logo-vertical-white-rgb.png";
+                //     console.log(artistimage);
+
+
+
+                //     var htmlString = "<div class='media-left media-top'><a href='#'><img class='media-object img-rounded' src='" + artistimage + "' alt='" + artistimage2 + "' width='200' hight='500'></a></div><div class='media-body'><h4 class='media-heading'>" + artistname + "</h4>" + "test" + "</div>";
+
+                //     $(".media").html(htmlString);
+                //     $('#artistdetail').collapse("show");
+                // };
+
+                function resetthings() {
+                    //dict = {};
+                    firsttime = true;
+                    $("#artists").html("");
+                    //$('#artistdetail').collapse("hide");
+                };
+
+                function buildlist(result) {
+                    if (result.length == 0) {
+                        return
+                    };
+                    var tmphtml = "";
+                    var i = 0;
+                    var num = 20;
+                    while (i < num && i < result.length) {
+                        var imgurl = "/spotify-logo-vertical-white-rgb.png";
+                        if (result[i].images.length > 0) {
+                            imgurl = result[i].images[0].url;
+                        }
+                        tmphtml += "<div class='col-md-6 btn-default btn colblocks' >" + "<div class='media-left'><img class='media-object img-rounded' src='" + imgurl + "' alt='" + imgurl + "' width='80%'></div><div class='media-body'><a class='media-heading '  href='#'><h5 id='artistname'>" + result[i].name + "</h5></a></div>" + "<p class='artistid'>" + result[i].id + "</p> </div>";
+                        //dict[result[i].id] = [result[i].name, result[i].images, result[i].popularity, result[i].uri];
+                        i += 1;
+                    };
+                    $("#artists").html(tmphtml);
+                    $("div.colblocks").each(function(index) {
+                        $(this).delay(150 * index).queue(function(nxt) {
+                            $(this).animo({
+                                animation: "fadeInUp",
+                                duration: 0.2,
+                                keep: true
+                            });
+                            nxt();
+                        });
+                    });
+                };
+                
             });
-        };
-    });
     </script>
 </head>
 
@@ -247,7 +266,7 @@
         </div>
         <div id="artists" class="row">
         </div>
-        <div class="modal fade" id="artistModal" tabindex="-1" role="dialog" aria-labelledby="artistModalName">
+        <div class="modal" id="artistModal" tabindex="-1" role="dialog" aria-labelledby="artistModalName">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -255,7 +274,9 @@
                         <h4 class="modal-title" id="artistModalName">Modal title</h4>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">.col-md-6 .col-md-offset-3</div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
