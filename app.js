@@ -80,7 +80,6 @@ app.get('/getTopTracks/:artistid', function(req, res, next) {
     var id = req.params.artistid;
     spotifyApi.getArtistTopTracks(id, 'GB').then(function(data) {
         res.setHeader('Content-Type', 'application/json');
-        console.log(data.body);
         res.send(JSON.stringify(data.body));
     }, function(err) {
         next(err);
