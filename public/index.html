@@ -13,7 +13,14 @@
     <script type="text/javascript" src="/animo.js"></script>
     <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
     <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+    <script src="https://use.typekit.net/loh2mua.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <style type="text/css">
+    body {
+        font-family: "fira-sans";
+        font-weight: 100;
+        font-style: normal;
+    }
     .text-overflow {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -171,14 +178,9 @@
                 var tmphtml="";
                 console.log(result)
                 $.each(result.tracks, function(index, value){
-                    // var imgurl = "/spotify-logo-vertical-white-rgb.png";
-                    // if (value[i].images.length > 0) {
-                    //     imgurl = result[i].images[0].url;
-                    // }
-                    tmphtml += "<div class='col-md-10 col-md-offset-1' >" + "<h5 id='artistname'>" + value.name + "</h5>" + "<p class='artistid'>" + value.id + "</p> </div>";
+                    tmphtml += "<div class='col-md-10 col-md-offset-1' >" + "<h5 id='trackname'>" + value.name + "</h5>" + "<p class='trackid'>" + value.id + "</p> </div>";
                 });
                 $(".modal-body .row").html(tmphtml);
-
             })
 
             $("div.colblocks").each(function(index) {
@@ -292,7 +294,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary">Search Ra</button>
                     </div>
                 </div>
             </div>

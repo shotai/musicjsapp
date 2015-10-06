@@ -70,7 +70,7 @@ app.get('/getArtistAlbums', function(req, res, next) {
     var id = req.params.artistid;
     spotifyApi.getArtistAlbums(id).then(function(data) {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(data.body.items));
+        res.send(JSON.stringify(data.body));
     }, function(err) {
         next(err);
     });
