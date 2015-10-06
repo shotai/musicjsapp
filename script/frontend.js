@@ -63,6 +63,7 @@ $(function() {
             url: "/getTopTracks/"+artistIds,
             dataType: 'json',
             success: function(result) {
+                console.log(result);
                 callback(result);
             },
             error: function(error) {

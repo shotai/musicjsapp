@@ -67,7 +67,7 @@ app.get('/getRelatedArtists/:artistid', function(req, res, next) {
 });
 
 app.get('/getArtistAlbums', function(req, res, next) {
-    var id = req.query.artistid;
+    var id = req.params.artistid;
     spotifyApi.getArtistAlbums(id).then(function(data) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(data.body.items));
@@ -78,9 +78,10 @@ app.get('/getArtistAlbums', function(req, res, next) {
 
 app.get('/getTopTracks/:artistid', function(req, res, next) {
     var id = req.params.artistid;
-    spotifyApi.getArtistTopTracks('0oSGxfWSnnOXhD2fKuz2Gy', 'GB').then(function(data) {
+    spotifyApi.getArtistTopTracks(id, 'GB').then(function(data) {
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(data.body.items));
+        console.log(data.body);
+        res.send(JSON.stringify(data.body));
     }, function(err) {
         next(err);
     });
