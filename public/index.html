@@ -49,13 +49,18 @@
             $("#artistModalName").html(artistname);
             getTopTracks(artistid, function(result) {
                 var i = 0;
-                var tmphtml = "<p class='artistid'>"+artistid+"</p>";
+                var tmphtml = "<p class='artistid'>" + artistid + "</p>";
                 $.each(result.tracks, function(index, value) {
                     tmphtml += "<div class='col-md-10 col-md-offset-1' >" + "<h5 id='trackname'>" + value.name + "</h5>" + "<p class='trackid'>" + value.id + "</p> </div>";
                 });
                 $(".modal-body .row").html(tmphtml);
             })
         });
+
+        $("#trackname").on("click", function(e){
+            $("#track")
+
+        })
         $("#searchRelated").on("click", function(e) {
             var artistid = $(".modal-body .row .artistid").html();
             $("div.colblocks").each(function(index) {
@@ -75,6 +80,7 @@
                 }
             });
         });
+
         function resetthings() {
             firsttime = true;
             $("#artists").html("");
@@ -87,8 +93,8 @@
                 return
             };
             var tmphtml = "";
-            $.each(result, function(index, value){
-                if(index>9){
+            $.each(result, function(index, value) {
+                if (index > 9) {
                     return false;
                 }
                 var imgurl = "/spotify-logo-vertical-white-rgb.png";
@@ -141,6 +147,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div display="None">
+            <audio controls>
+                <source  src="horse.ogg" type="audio/mpeg">
+            </audio>
         </div>
     </div>
 </body>

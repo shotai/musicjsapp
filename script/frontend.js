@@ -72,6 +72,21 @@ $(function() {
             }
         });
     }
+    getTopTracks = function(trackId, callback) {
+        $.ajax({
+            type: "GET",
+            url: "/getTrack/"+trackId,
+            dataType: 'json',
+            success: function(result) {
+                console.log(result);
+                callback(result);
+            },
+            error: function(error) {
+                console.log(error)
+                callback(null);
+            }
+        });
+    }
 
 
 })

@@ -86,6 +86,16 @@ app.get('/getTopTracks/:artistid', function(req, res, next) {
     });
 });
 
+app.get('/getTrack/:trackid', function(req, res, next) {
+    var id = req.params.trackid;
+    spotifyApi.getTrack(id).then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(data.body));
+    }, function(err) {
+        next(err);
+    });
+});
+
 
 
 
